@@ -9,10 +9,12 @@ import java.util.Scanner;
 public class Citta {
 
     public static void main(String[] args) {
+        // Creación de varios objetos Scanner para los diferentes tipos de entradas por parte del usuario.
         Scanner ingresoInt = new Scanner(System.in);
         Scanner ingresoChar = new Scanner(System.in);
         ArrayList<Producto> productos = new ArrayList<Producto>();
 
+        // Creación de los objetos de las clases donde están la base de datos y los métodos para manipular productos.
         BaseDeDatos baseDeDatos = new BaseDeDatos();
         ProcesosProductos accion = new ProcesosProductos();
         
@@ -22,6 +24,7 @@ public class Citta {
         int codigo = 0;
         char eliminar = 'n';
         
+        // Llenar lista con los datos de la base de datos.
         productos = baseDeDatos.obtenerBaseDeDatos();
         
         dividir(25);
@@ -33,6 +36,7 @@ public class Citta {
         do {            
             System.out.println("");
         
+            // Mostrar menú en pantalla.
             for (int i = 0; i < menu.length; i++) {
                 System.out.println(menu[i]);
             }
@@ -40,19 +44,18 @@ public class Citta {
             System.out.println("");
             System.out.println("Elija una opcion del menu: ");
             
-            while(!ingresoInt.hasNextInt()) {
-                ingresoInt.next();
-            }
-            
             opcion = ingresoInt.nextInt();
 
+            // Validar opciones del menú.
             Producto resultado = new Producto();
             int indice = 0;
             switch(opcion) {
                 case 1:
+                    // Mostrar lista de productos.
                     accion.mostrarProductos(productos);
                     break;
                 case 2:
+                    // Buscar un poducto por código.
                     System.out.println("Ingrese el codigo del producto que desea buscar: ");
                     codigo = ingresoInt.nextInt();
 
@@ -60,12 +63,14 @@ public class Citta {
                     accion.mostrarProducto(resultado);
                     break;
                 case 3:
+                    // Agregar un nuevo producto (elemento) a la lista.
                     resultado = accion.crearProducto();
                     productos.add(resultado);
 
                     productos = accion.ordearProductos(productos);
                     break; 
                 case 4:
+                    // Editar un producto (elemento) de la lista.
                     System.out.println("Ingrese el codigo del producto que desea editar: ");
                     codigo = ingresoInt.nextInt();
 
@@ -76,12 +81,14 @@ public class Citta {
                     productos.set(indice, resultado);
                     break;
                 case 5:
+                    // Eliminar un producto (elemento) de la lista.
                     System.out.println("Ingrese el codigo del producto que desea eliminar: ");
                     codigo = ingresoInt.nextInt();
 
                     resultado = accion.buscarProducto(productos, codigo);
                     accion.mostrarProducto(resultado);
 
+                    // Segunda confirmación de eliminación de un producto (elemento) de la lista.
                     System.out.println("¿Esta seguro de que desea eliminar el producto (S o s: Si y N o n: No)?");
                     eliminar = ingresoChar.nextLine().charAt(0);
                     indice = accion.editarYEliminarProducto(productos, codigo);
@@ -108,10 +115,12 @@ public class Citta {
             }
         } while(control);
         
+        // Cerrar objetos escanner para librarlos de memoria.
         ingresoInt.close();
         ingresoChar.close();
     }
     
+    // Generar una línea del caracter =, n cantidad de veces.
     public static void dividir(int tamanio) {
         String resultado = "";
         

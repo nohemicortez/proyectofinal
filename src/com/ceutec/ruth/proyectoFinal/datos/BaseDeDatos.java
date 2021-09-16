@@ -13,6 +13,7 @@ public class BaseDeDatos {
         
     }
     
+    // Método para generar datos de productos en una lista de objetos (Producto).
     public ArrayList<Producto> obtenerBaseDeDatos() {
         ArrayList<Producto> resultado = new ArrayList<Producto>();
         Producto producto;
