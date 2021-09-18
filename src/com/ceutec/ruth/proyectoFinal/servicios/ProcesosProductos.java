@@ -196,6 +196,21 @@ public class ProcesosProductos {
                     producto.seccion, producto.promocion, producto.temporada, producto.porcion, producto.precio, producto.cantidadInventario);
     }
     
+    public boolean existeElProducto(ArrayList<Producto> productos, String codigo) {
+        boolean resultado = false;
+        
+        for (int i = 0; i < productos.size(); i++) {
+            if (codigo.compareTo(productos.get(i).codigo) == 0) {
+                resultado = true;
+                break;
+            } else {
+                resultado = false;
+            }
+        }
+        
+        return resultado;
+    }
+    
     // Buscar un producto.
     // Se retornará el producto (elemento) de la lista mediante comparación por código de producto.
     public Producto buscarProducto(ArrayList<Producto> productos, String codigo) {

@@ -41,12 +41,32 @@ public class Citta {
             for (int i = 0; i < menu.length; i++) {
                 System.out.println(menu[i]);
             }
-
-            System.out.println("");
-            System.out.println("Elija una opcion del menu: ");
             
-            opcion = ingresoInt.nextInt();
+            boolean validacion = false;
+            String validar = "";
+             
+            System.out.println("");
+               
+            do {
+                try {
+                    System.out.println("Elija una opcion del menu: ");
+                    validar = ingresoString.nextLine();
 
+                    int conversion = Integer.valueOf(validar);
+
+                    if (conversion >= 1 && conversion <= 6) {
+                        validacion = true;
+                        opcion = conversion;
+                    } else {
+                        validacion = false;
+                        System.out.println("La opción debe estar entre 1 y 6.");
+                    }
+                } catch(Exception error) {
+                    validacion = false;
+                    System.out.println("Ha introducido un dato no numérico.");
+                }
+            } while(!validacion);
+            
             // Validar opciones del menú.
             Producto resultado = new Producto();
             int indice = 0;
@@ -57,11 +77,20 @@ public class Citta {
                     break;
                 case 2:
                     // Buscar un poducto por código.
-                    System.out.println("Ingrese el codigo del producto que desea buscar: ");
-                    codigo = ingresoString.nextLine();
+                    do {
+                        System.out.println("Ingrese el codigo del producto que desea buscar: ");
+                        codigo = ingresoString.nextLine();
 
-                    resultado = accion.buscarProducto(productos, codigo);
-                    accion.mostrarProducto(resultado);
+                        if (accion.existeElProducto(productos, codigo)) {
+                            validacion = true;
+                            resultado = accion.buscarProducto(productos, codigo);
+                            accion.mostrarProducto(resultado);
+                        } else {
+                            System.out.println("El producto que desea buscar no existe.");
+                            validacion = false;
+                        }
+                    } while(!validacion);
+                    
                     break;
                 case 3:
                     // Agregar un nuevo producto (elemento) a la lista.
