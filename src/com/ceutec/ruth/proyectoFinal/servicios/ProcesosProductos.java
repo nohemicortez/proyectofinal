@@ -5,6 +5,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ProcesosProductos {
+    // Creación de varios objetos Scanner para los diferentes tipos de entradas por parte del usuario.
+    Scanner ingresoString = new Scanner(System.in);
+    Scanner ingresoInt = new Scanner(System.in);
+    Scanner ingresoDouble = new Scanner(System.in);
+    Scanner ingresoBoolean = new Scanner(System.in);
+        
     // Títulos de columnas.
     String[] titulosColumnas = {"Codigo", "Nombre", "Marca", "Fecha de elaboracion", "Fecha de caducidad",
         "Seccion", "Promocion", "Temporada", "Porcion", "Precio", "Cantidad en inventario"};
@@ -15,12 +21,6 @@ public class ProcesosProductos {
     
     // Creación de un producto nuevo (tipo de dato Producto).
     public Producto crearProducto() {
-        // Creación de varios objetos Scanner para los diferentes tipos de entradas por parte del usuario.
-        Scanner ingresoString = new Scanner(System.in);
-        Scanner ingresoInt = new Scanner(System.in);
-        Scanner ingresoDouble = new Scanner(System.in);
-        Scanner ingresoBoolean = new Scanner(System.in);
-        
         Producto resultado = new Producto();
         
         // Ingreso de datos por parte del usuario.
@@ -138,12 +138,6 @@ public class ProcesosProductos {
             }
         } while(!validacion);
         
-        // Cerrar objetos escanner para librarlos de memoria.
-        ingresoString.close();
-        ingresoInt.close();
-        ingresoDouble.close();
-        ingresoBoolean.close();
-        
         return resultado;
     }
 
@@ -236,7 +230,7 @@ public class ProcesosProductos {
                 Producto respaldo = new Producto();
                 
                 // Comparación de códigos del elemento actual (i) con el siguiente (i + 1).
-                if (resultado.get(j).codigo.compareTo(resultado.get(j + 1).codigo) == 0 ) {
+                if (resultado.get(j).codigo.compareTo(resultado.get(j + 1).codigo) > 0 ) {
                     respaldo = resultado.get(j + 1);
                     resultado.set(j + 1, resultado.get(j));
                     resultado.set(j, respaldo);
@@ -256,5 +250,13 @@ public class ProcesosProductos {
         }
         
         System.out.println(resultado);
+    }
+
+    public void cerrarClase() {
+        // Cerrar objetos escanner para librarlos de memoria.
+        ingresoString.close();
+        ingresoInt.close();
+        ingresoDouble.close();
+        ingresoBoolean.close();
     }
 }

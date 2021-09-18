@@ -20,13 +20,14 @@ public class Citta {
         ProcesosProductos accion = new ProcesosProductos();
         
         boolean control = true;
-        String[] menu = {"1.- Mostrar productos.", "2.- Buscar producto.", "3.- Agregar producto.", "4.- Editar producto", "5.- Eliminar producto."};
+        String[] menu = {"1.- Mostrar productos.", "2.- Buscar producto.", "3.- Agregar producto.", "4.- Editar producto", "5.- Eliminar producto.", "6.- Salir del programa."};
         int opcion = 0;
         String codigo = "";
         char eliminar = 'n';
         
         // Llenar lista con los datos de la base de datos.
         productos = baseDeDatos.obtenerBaseDeDatos();
+        productos = accion.ordearProductos(productos);
         
         dividir(25);
         System.out.println("Proyecto final");
@@ -34,20 +35,20 @@ public class Citta {
         System.out.println("Citta");
         dividir(25);
         
-        do {            
+        boolean validacion = false;
+        String validar = "";
+        
+        do { 
             System.out.println("");
         
             // Mostrar menú en pantalla.
             for (int i = 0; i < menu.length; i++) {
                 System.out.println(menu[i]);
             }
-            
-            boolean validacion = false;
-            String validar = "";
              
             System.out.println("");
                
-            do {
+            do {    
                 try {
                     System.out.println("Elija una opcion del menu: ");
                     validar = ingresoString.nextLine();
@@ -101,51 +102,73 @@ public class Citta {
                     break; 
                 case 4:
                     // Editar un producto (elemento) de la lista.
-                    System.out.println("Ingrese el codigo del producto que desea editar: ");
-                    codigo = ingresoString.nextLine();
+                     do {
+                        System.out.println("Ingrese el codigo del producto que desea editar: ");
+                        codigo = ingresoString.nextLine();
 
-                    resultado = accion.buscarProducto(productos, codigo);
-                    accion.mostrarProducto(resultado);
-                    resultado = accion.crearProducto();
-                    indice = accion.editarYEliminarProducto(productos, codigo);
-                    productos.set(indice, resultado);
+                        if (accion.existeElProducto(productos, codigo)) {
+                            validacion = true;
+                            resultado = accion.buscarProducto(productos, codigo);
+                            accion.mostrarProducto(resultado);
+                            resultado = accion.crearProducto();
+                            indice = accion.editarYEliminarProducto(productos, codigo);
+                            productos.set(indice, resultado);
+                            productos = accion.ordearProductos(productos);
+                        } else {
+                            System.out.println("El producto que desea editar no existe.");
+                            validacion = false;
+                        }
+                    } while(!validacion);
+                    
                     break;
                 case 5:
                     // Eliminar un producto (elemento) de la lista.
-                    System.out.println("Ingrese el codigo del producto que desea eliminar: ");
-                    codigo = ingresoString.nextLine();
+                    do {
+                        System.out.println("Ingrese el codigo del producto que desea eliminar: ");
+                        codigo = ingresoString.nextLine();
 
-                    resultado = accion.buscarProducto(productos, codigo);
-                    accion.mostrarProducto(resultado);
+                        if (accion.existeElProducto(productos, codigo)) {
+                            validacion = true;
+                            resultado = accion.buscarProducto(productos, codigo);
+                            accion.mostrarProducto(resultado);
 
-                    // Segunda confirmación de eliminación de un producto (elemento) de la lista.
-                    System.out.println("¿Esta seguro de que desea eliminar el producto (S o s: Si y N o n: No)?");
-                    eliminar = ingresoChar.nextLine().charAt(0);
-                    indice = accion.editarYEliminarProducto(productos, codigo);
+                            // Segunda confirmación de eliminación de un producto (elemento) de la lista.
+                            System.out.println("¿Esta seguro de que desea eliminar el producto (S o s: Si y N o n: No)?");
+                            eliminar = ingresoChar.nextLine().charAt(0);
+                            indice = accion.editarYEliminarProducto(productos, codigo);
 
-                    switch(eliminar) {
-                        case 'S':
-                            productos.remove(indice);
-                            break;
-                        case 's':
-                            productos.remove(indice);
-                            break;
-                        case 'N':
-                            productos.remove(indice);
-                            break;
-                        case 'n':
-                            productos.remove(indice);
-                            break;
-                        default:
-                            System.out.println("Opcion invalida");
-                    }
+                            switch(eliminar) {
+                                case 'S':
+                                    productos.remove(indice);
+                                    productos = accion.ordearProductos(productos);
+                                    break;
+                                case 's':
+                                    productos.remove(indice);
+                                    productos = accion.ordearProductos(productos);
+                                    break;
+                                case 'N':
+                                    break;
+                                case 'n':
+                                    break;
+                                default:
+                                    System.out.println("Opcion invalida");
+                            }
+                        } else {
+                            System.out.println("El producto que desea eliminar no existe.");
+                            validacion = false;
+                        }
+                    } while(!validacion);
+                    
                     break;
+                case 6:
+                    control = false;
                 default:
                     System.out.println("Opcion invalida");
             }
         } while(control);
         
         // Cerrar objetos escanner para librarlos de memoria.
+        accion.cerrarClase();
         ingresoString.close();
         ingresoInt.close();
         ingresoChar.close();
