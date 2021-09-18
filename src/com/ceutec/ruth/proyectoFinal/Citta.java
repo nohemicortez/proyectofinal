@@ -10,6 +10,7 @@ public class Citta {
 
     public static void main(String[] args) {
         // Creación de varios objetos Scanner para los diferentes tipos de entradas por parte del usuario.
+        Scanner ingresoString = new Scanner(System.in);
         Scanner ingresoInt = new Scanner(System.in);
         Scanner ingresoChar = new Scanner(System.in);
         ArrayList<Producto> productos = new ArrayList<Producto>();
@@ -21,7 +22,7 @@ public class Citta {
         boolean control = true;
         String[] menu = {"1.- Mostrar productos.", "2.- Buscar producto.", "3.- Agregar producto.", "4.- Editar producto", "5.- Eliminar producto."};
         int opcion = 0;
-        int codigo = 0;
+        String codigo = "";
         char eliminar = 'n';
         
         // Llenar lista con los datos de la base de datos.
@@ -57,7 +58,7 @@ public class Citta {
                 case 2:
                     // Buscar un poducto por código.
                     System.out.println("Ingrese el codigo del producto que desea buscar: ");
-                    codigo = ingresoInt.nextInt();
+                    codigo = ingresoString.nextLine();
 
                     resultado = accion.buscarProducto(productos, codigo);
                     accion.mostrarProducto(resultado);
@@ -72,7 +73,7 @@ public class Citta {
                 case 4:
                     // Editar un producto (elemento) de la lista.
                     System.out.println("Ingrese el codigo del producto que desea editar: ");
-                    codigo = ingresoInt.nextInt();
+                    codigo = ingresoString.nextLine();
 
                     resultado = accion.buscarProducto(productos, codigo);
                     accion.mostrarProducto(resultado);
@@ -83,7 +84,7 @@ public class Citta {
                 case 5:
                     // Eliminar un producto (elemento) de la lista.
                     System.out.println("Ingrese el codigo del producto que desea eliminar: ");
-                    codigo = ingresoInt.nextInt();
+                    codigo = ingresoString.nextLine();
 
                     resultado = accion.buscarProducto(productos, codigo);
                     accion.mostrarProducto(resultado);
@@ -116,6 +117,7 @@ public class Citta {
         } while(control);
         
         // Cerrar objetos escanner para librarlos de memoria.
+        ingresoString.close();
         ingresoInt.close();
         ingresoChar.close();
     }

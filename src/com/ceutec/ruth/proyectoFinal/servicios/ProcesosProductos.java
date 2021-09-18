@@ -26,7 +26,7 @@ public class ProcesosProductos {
         // Ingreso de datos por parte del usuario.
         // Se almacenarán en un objeto de tipo Producto.
         System.out.println("Codigo del producto: ");
-        resultado.codigo = ingresoInt.nextInt();
+        resultado.codigo = ingresoString.nextLine();
         System.out.println("Ingrese el nombre del producto: ");
         resultado.nombre = ingresoString.nextLine();
         System.out.println("Ingrese la marca del producto: ");
@@ -37,14 +37,106 @@ public class ProcesosProductos {
         resultado.fechaCaducidad = ingresoString.nextLine();
         System.out.println("Ingrese la seccion del producto: ");
         resultado.seccion = ingresoString.nextLine();
-        System.out.println("¿Esta el producto en promocion?: ");
-        resultado.promocion = ingresoBoolean.nextBoolean();
-        System.out.println("¿Es un producto de temporada?: ");
-        resultado.temporada = ingresoBoolean.nextBoolean();
-        System.out.println("Ingrese el precio del producto: ");
-        resultado.precio = ingresoDouble.nextDouble();
-        System.out.println("Ingrese la cantidad de productos que hay en inventario: ");
-        resultado.cantidadInventario = ingresoInt.nextInt();
+        
+        boolean validacion = false;
+        String validar = "";
+        char letra = 'n';
+        
+        do {
+            System.out.println("¿Esta el producto en promocion? (S o s para sí; N o n para no): ");
+            validar = ingresoString.nextLine();
+            letra = validar.charAt(0);
+
+            switch(letra){
+                case 'S':
+                    validacion = true;
+                    resultado.promocion = true;
+                    break;
+                case 's':
+                    validacion = true;
+                    resultado.promocion = true;
+                    break;  
+                case 'N':
+                    validacion = true;
+                    resultado.promocion = false;
+                    break;
+                case 'n':
+                    validacion = true;
+                    resultado.promocion = false;
+                    break;
+                default:
+                    validacion = false;
+                    System.out.println("Opción inválida");
+            }
+        } while(!validacion);
+      
+        do {
+            System.out.println("¿Es un producto de temporada? (S o s para sí; N o n para no): ");
+            validar = ingresoString.nextLine();
+            letra = validar.charAt(0);
+
+            switch(letra){
+                case 'S':
+                    validacion = true;
+                    resultado.temporada = true;
+                    break;
+                case 's':
+                    validacion = true;
+                    resultado.temporada = true;
+                    break;  
+                case 'N':
+                    validacion = true;
+                    resultado.temporada = false;
+                    break;
+                case 'n':
+                    validacion = true;
+                    resultado.temporada = false;
+                    break;
+                default:
+                    validacion = false;
+                    System.out.println("Opción inválida.");
+            }
+        } while(!validacion);
+        
+        do {
+            try {
+                System.out.println("Ingrese el precio del producto: ");
+                validar = ingresoString.nextLine();
+
+                int conversion = Integer.valueOf(validar);
+
+                if (conversion > 0) {
+                    validacion = true;
+                    resultado.precio = conversion;
+                } else {
+                    validacion = false;
+                    System.out.println("El numero no puede ser igual o menor que cero.");
+                }
+            } catch(Exception error) {
+                validacion = false;
+                System.out.println("Ha introducido un dato no numérico.");
+            }
+        } while(!validacion);
+        
+        do {
+            try {
+                System.out.println("Ingrese la cantidad de productos que hay en inventario: ");
+                validar = ingresoString.nextLine();
+
+                int conversion = Integer.valueOf(validar);
+
+                if (conversion > 0) {
+                    validacion = true;
+                    resultado.cantidadInventario = conversion;
+                } else {
+                    validacion = false;
+                    System.out.println("El numero no puede ser igual o menor que cero.");
+                }
+            } catch(Exception error) {
+                validacion = false;
+                System.out.println("Ha introducido un dato no numérico.");
+            }
+        } while(!validacion);
         
         // Cerrar objetos escanner para librarlos de memoria.
         ingresoString.close();
@@ -58,12 +150,12 @@ public class ProcesosProductos {
     // Edición y eliminación de un producto (tipo de dato Producto).
     // Se retornará el índice de la lista mediante comparación por código de producto.
     // El reemplazo o eliminación se hará en la lista en la clase principal del sistema (prodcutos cargados en memoria);
-    public int editarYEliminarProducto(ArrayList<Producto> productos, int codigo) {
+    public int editarYEliminarProducto(ArrayList<Producto> productos, String codigo) {
         int resultado = 0;
         
         // Comparación de código y obtención del índice.
         for (int i = 0; i < productos.size(); i++) {
-            if (codigo == productos.get(i).codigo) {
+            if (codigo.compareTo(productos.get(i).codigo) == 0) {
                 resultado = i;
                 break;
             }
@@ -106,12 +198,12 @@ public class ProcesosProductos {
     
     // Buscar un producto.
     // Se retornará el producto (elemento) de la lista mediante comparación por código de producto.
-    public Producto buscarProducto(ArrayList<Producto> productos, int codigo) {
+    public Producto buscarProducto(ArrayList<Producto> productos, String codigo) {
         Producto resultado = new Producto();
         
         for (int i = 0; i < productos.size(); i++) {
             // Comparación de código y obtención del producto.
-            if (codigo == productos.get(i).codigo) {
+            if (codigo.compareTo(productos.get(i).codigo) == 0) {
                 resultado = productos.get(i);
                 break;
             }
@@ -129,7 +221,7 @@ public class ProcesosProductos {
                 Producto respaldo = new Producto();
                 
                 // Comparación de códigos del elemento actual (i) con el siguiente (i + 1).
-                if (resultado.get(j).codigo > resultado.get(j + 1).codigo) {
+                if (resultado.get(j).codigo.compareTo(resultado.get(j + 1).codigo) == 0 ) {
                     respaldo = resultado.get(j + 1);
                     resultado.set(j + 1, resultado.get(j));
                     resultado.set(j, respaldo);

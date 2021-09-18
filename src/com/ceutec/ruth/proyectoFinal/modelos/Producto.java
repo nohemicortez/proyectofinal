@@ -2,7 +2,7 @@ package com.ceutec.ruth.proyectoFinal.modelos;
 
 // Clase que se usará como modelo (tipo de dato) en listas.
 public class Producto {
-    public int codigo = 0;
+    public String codigo = "";
     public String nombre = "";
     public String marca = "";
     public String fechaElaboracion = "";
@@ -19,7 +19,7 @@ public class Producto {
     }
     
     public Producto(
-        int newCodigo,
+        String newCodigo,
         String newNombre,
         String newMarca,
         String newFechaElaboracion,
