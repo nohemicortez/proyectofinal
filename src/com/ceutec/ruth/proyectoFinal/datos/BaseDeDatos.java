@@ -18,13 +18,13 @@ public class BaseDeDatos {
         ArrayList<Producto> resultado = new ArrayList<Producto>();
         Producto producto;
         
-        producto = new Producto("g-01", "Cafe", "Nestle", "2020", "2021", "Granos", false, false, 150, 80.00, 1500);
+        producto = new Producto("g-01", "Café", "Nestle", "2020", "2021", "Granos", false, false, 150, 80.00, 1500);
         resultado.add(producto);
         
-        producto = new Producto("l-01", "Leche en polvo", "Nido", "2020", "2022", "Lacteos", false, false, 550, 350.00, 1000);
+        producto = new Producto("l-01", "Leche en polvo", "Nido", "2020", "2022", "Lácteos", false, false, 550, 350.00, 1000);
         resultado.add(producto);
         
-        producto = new Producto("g-02", "Azucar", "Morena", "2021", "2023", "Granos", false, false, 180, 50.00, 2000);
+        producto = new Producto("g-02", "Azúcar", "Morena", "2021", "2023", "Granos", false, false, 180, 50.00, 2000);
         resultado.add(producto);
         
         producto = new Producto("g-03", "Manteca", "Clover", "2019", "2021", "Granos", false, false, 200, 70.00, 1200);
@@ -42,7 +42,7 @@ public class BaseDeDatos {
         producto = new Producto("g-07", "Frijoles", "Suli", "2020", "2023", "Granos", false, false, 800, 150.00, 2000);
         resultado.add(producto);
         
-        producto = new Producto("l-02", "Mantequilla", "Nestle", "2020", "2021", "Lacteos", false, false, 450, 100.00, 600);
+        producto = new Producto("l-02", "Mantequilla", "Nestle", "2020", "2021", "Lácteos", false, false, 450, 100.00, 600);
         resultado.add(producto);
         
         producto = new Producto("g-08", "Harina", "La Rosa", "2020", "2023", "Granos", false, false, 453, 85.00, 700);
@@ -54,7 +54,7 @@ public class BaseDeDatos {
         producto = new Producto("p-01", "Pan Molde", "Bimbo", "2020", "2021", "Pan", false, false, 560, 55.00, 900);
         resultado.add(producto);
         
-        producto = new Producto("l-03", "Queso", "Sula", "2020", "2021", "Lacteos", false, false, 110, 450.00, 850);
+        producto = new Producto("l-03", "Queso", "Sula", "2020", "2021", "Lácteos", false, false, 110, 450.00, 850);
         resultado.add(producto);
         
         producto = new Producto("g-10", "Corn Flakes", "Kellogg's", "2020", "2023", "Granos", false, false, 530, 150.00, 2100);

@@ -35,6 +35,7 @@ public class Citta {
         System.out.println("Citta");
         dividir(25);
         
+        // Variables para validación de campos numéricos.
         boolean validacion = false;
         String validar = "";
         
@@ -45,12 +46,11 @@ public class Citta {
             for (int i = 0; i < menu.length; i++) {
                 System.out.println(menu[i]);
             }
-             
-            System.out.println("");
                
-            do {    
+            do {
+                // Nos aprovechamos del error de conversión de texto a número (Integer.valueOf()) para identificar si es un número.
                 try {
-                    System.out.println("Elija una opcion del menu: ");
+                    System.out.println("\nElija una opcion del menu: ");
                     validar = ingresoString.nextLine();
 
                     int conversion = Integer.valueOf(validar);
@@ -60,11 +60,11 @@ public class Citta {
                         opcion = conversion;
                     } else {
                         validacion = false;
-                        System.out.println("La opción debe estar entre 1 y 6.");
+                        System.out.println("\n\tLa opción debe estar entre 1 y 6.");
                     }
                 } catch(Exception error) {
                     validacion = false;
-                    System.out.println("Ha introducido un dato no numérico.");
+                    System.out.println("\n\tHa introducido un dato no numérico.");
                 }
             } while(!validacion);
             
@@ -79,15 +79,16 @@ public class Citta {
                 case 2:
                     // Buscar un poducto por código.
                     do {
-                        System.out.println("Ingrese el codigo del producto que desea buscar: ");
+                        System.out.println("Ingrese el código del producto que desea buscar: ");
                         codigo = ingresoString.nextLine();
 
+                        // Verificar si existe el producot en la base de datos.
                         if (accion.existeElProducto(productos, codigo)) {
                             validacion = true;
                             resultado = accion.buscarProducto(productos, codigo);
                             accion.mostrarProducto(resultado);
                         } else {
-                            System.out.println("El producto que desea buscar no existe.");
+                            System.out.println("\n\tEl producto que desea buscar no existe.");
                             validacion = false;
                         }
                     } while(!validacion);
@@ -103,9 +104,10 @@ public class Citta {
                 case 4:
                     // Editar un producto (elemento) de la lista.
                      do {
-                        System.out.println("Ingrese el codigo del producto que desea editar: ");
+                        System.out.println("Ingrese el código del producto que desea editar: ");
                         codigo = ingresoString.nextLine();
 
+                        // Verificar si existe el producot en la base de datos.
                         if (accion.existeElProducto(productos, codigo)) {
                             validacion = true;
                             resultado = accion.buscarProducto(productos, codigo);
@@ -115,7 +117,7 @@ public class Citta {
                             productos.set(indice, resultado);
                             productos = accion.ordearProductos(productos);
                         } else {
-                            System.out.println("El producto que desea editar no existe.");
+                            System.out.println("\n\tEl producto que desea editar no existe.");
                             validacion = false;
                         }
                     } while(!validacion);
@@ -124,16 +126,17 @@ public class Citta {
                 case 5:
                     // Eliminar un producto (elemento) de la lista.
                     do {
-                        System.out.println("Ingrese el codigo del producto que desea eliminar: ");
+                        System.out.println("Ingrese el código del producto que desea eliminar: ");
                         codigo = ingresoString.nextLine();
 
+                        // Verificar si existe el producot en la base de datos.
                         if (accion.existeElProducto(productos, codigo)) {
                             validacion = true;
                             resultado = accion.buscarProducto(productos, codigo);
                             accion.mostrarProducto(resultado);
 
                             // Segunda confirmación de eliminación de un producto (elemento) de la lista.
-                            System.out.println("¿Esta seguro de que desea eliminar el producto (S o s: Si y N o n: No)?");
+                            System.out.println("\n\t¿Está seguro que desea eliminar el producto (S o s: Sí y N o n: No)?");
                             eliminar = ingresoChar.nextLine().charAt(0);
                             indice = accion.editarYEliminarProducto(productos, codigo);
 
@@ -151,10 +154,10 @@ public class Citta {
                                 case 'n':
                                     break;
                                 default:
-                                    System.out.println("Opcion invalida");
+                                    System.out.println("\n\tOpcion invalida");
                             }
                         } else {
-                            System.out.println("El producto que desea eliminar no existe.");
+                            System.out.println("\n\tEl producto que desea eliminar no existe.");
                             validacion = false;
                         }
                     } while(!validacion);
@@ -163,11 +166,11 @@ public class Citta {
                 case 6:
                     control = false;
                 default:
-                    System.out.println("Opcion invalida");
+                    System.out.println("\n\tOpción invalida");
             }
         } while(control);
         
-        // Cerrar objetos escanner para librarlos de memoria.
+        // Cerrar objetos escanner para liberarlos de la memoria.
         accion.cerrarClase();
         ingresoString.close();
         ingresoInt.close();

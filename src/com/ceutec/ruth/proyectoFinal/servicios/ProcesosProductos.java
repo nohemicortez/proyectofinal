@@ -12,8 +12,8 @@ public class ProcesosProductos {
     Scanner ingresoBoolean = new Scanner(System.in);
         
     // Títulos de columnas.
-    String[] titulosColumnas = {"Codigo", "Nombre", "Marca", "Fecha de elaboracion", "Fecha de caducidad",
-        "Seccion", "Promocion", "Temporada", "Porcion", "Precio", "Cantidad en inventario"};
+    String[] titulosColumnas = {"Código", "Nombre", "Marca", "Fecha de elaboración", "Fecha de caducidad",
+        "Sección", "Promoción", "Temporada", "Porción", "Precio", "Cantidad en inventario"};
     
     public ProcesosProductos() {
     
@@ -25,25 +25,26 @@ public class ProcesosProductos {
         
         // Ingreso de datos por parte del usuario.
         // Se almacenarán en un objeto de tipo Producto.
-        System.out.println("Codigo del producto: ");
+        System.out.println("Código del producto: ");
         resultado.codigo = ingresoString.nextLine();
         System.out.println("Ingrese el nombre del producto: ");
         resultado.nombre = ingresoString.nextLine();
         System.out.println("Ingrese la marca del producto: ");
         resultado.marca = ingresoString.nextLine();
-        System.out.println("Ingrese la fecha de elaboracion del producto: ");
+        System.out.println("Ingrese la fecha de elaboración del producto: ");
         resultado.fechaElaboracion = ingresoString.nextLine();
         System.out.println("Ingrese la fecha de caducidad del producto: ");
         resultado.fechaCaducidad = ingresoString.nextLine();
-        System.out.println("Ingrese la seccion del producto: ");
+        System.out.println("Ingrese la sección del producto: ");
         resultado.seccion = ingresoString.nextLine();
         
+        // Validación de los campos booleanos y numéricos.
         boolean validacion = false;
         String validar = "";
         char letra = 'n';
         
         do {
-            System.out.println("¿Esta el producto en promocion? (S o s para sí; N o n para no): ");
+            System.out.println("¿Está el producto en promocion? (S o s para Sí; N o n para No): ");
             validar = ingresoString.nextLine();
             letra = validar.charAt(0);
 
@@ -66,12 +67,12 @@ public class ProcesosProductos {
                     break;
                 default:
                     validacion = false;
-                    System.out.println("Opción inválida");
+                    System.out.println("\n\tOpción inválida");
             }
         } while(!validacion);
       
         do {
-            System.out.println("¿Es un producto de temporada? (S o s para sí; N o n para no): ");
+            System.out.println("¿Es un producto de temporada? (S o s para Sí; N o n para No): ");
             validar = ingresoString.nextLine();
             letra = validar.charAt(0);
 
@@ -94,11 +95,12 @@ public class ProcesosProductos {
                     break;
                 default:
                     validacion = false;
-                    System.out.println("Opción inválida.");
+                    System.out.println("\n\tOpción inválida.");
             }
         } while(!validacion);
         
         do {
+            // Nos aprovechamos del error de conversión de texto a número (Integer.valueOf()) para identificar si es un número.
             try {
                 System.out.println("Ingrese el precio del producto: ");
                 validar = ingresoString.nextLine();
@@ -110,15 +112,16 @@ public class ProcesosProductos {
                     resultado.precio = conversion;
                 } else {
                     validacion = false;
-                    System.out.println("El numero no puede ser igual o menor que cero.");
+                    System.out.println("\n\tEl precio no puede ser igual o menor que cero.");
                 }
             } catch(Exception error) {
                 validacion = false;
-                System.out.println("Ha introducido un dato no numérico.");
+                System.out.println("\n\tHa introducido un dato no numérico.");
             }
         } while(!validacion);
         
         do {
+            // Nos aprovechamos del error de conversión de texto a número (Integer.valueOf()) para identificar si es un número.
             try {
                 System.out.println("Ingrese la cantidad de productos que hay en inventario: ");
                 validar = ingresoString.nextLine();
@@ -130,11 +133,11 @@ public class ProcesosProductos {
                     resultado.cantidadInventario = conversion;
                 } else {
                     validacion = false;
-                    System.out.println("El numero no puede ser igual o menor que cero.");
+                    System.out.println("\n\tLa cantidad en inventario no puede ser igual o menor que cero.");
                 }
             } catch(Exception error) {
                 validacion = false;
-                System.out.println("Ha introducido un dato no numérico.");
+                System.out.println("\n\tHa introducido un dato no numérico.");
             }
         } while(!validacion);
         
@@ -190,10 +193,12 @@ public class ProcesosProductos {
                     producto.seccion, producto.promocion, producto.temporada, producto.porcion, producto.precio, producto.cantidadInventario);
     }
     
+    // Para validar la búsqueda, edición o eliminación de un producto se verifica si existe el mismo en la base de datos.
     public boolean existeElProducto(ArrayList<Producto> productos, String codigo) {
         boolean resultado = false;
         
         for (int i = 0; i < productos.size(); i++) {
+            // Comparación de código y obtención del producto.
             if (codigo.compareTo(productos.get(i).codigo) == 0) {
                 resultado = true;
                 break;
