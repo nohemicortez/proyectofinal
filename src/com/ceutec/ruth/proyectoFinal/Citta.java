@@ -133,29 +133,39 @@ public class Citta {
                         if (accion.existeElProducto(productos, codigo)) {
                             validacion = true;
                             resultado = accion.buscarProducto(productos, codigo);
-                            accion.mostrarProducto(resultado);
+                            accion.mostrarProducto(resultado);                            
 
-                            // Segunda confirmación de eliminación de un producto (elemento) de la lista.
-                            System.out.println("\n\t¿Está seguro que desea eliminar el producto (S o s: Sí y N o n: No)?");
-                            eliminar = ingresoChar.nextLine().charAt(0);
-                            indice = accion.editarYEliminarProducto(productos, codigo);
+                            boolean validacionEliminacion = false;
+                            
+                            do {
+                                // Segunda confirmación de eliminación de un producto (elemento) de la lista.
+                                System.out.println("\n\t¿Está seguro que desea eliminar el producto (S o s: Sí y N o n: No)?");
+                                eliminar = ingresoChar.nextLine().charAt(0);
+                                indice = accion.editarYEliminarProducto(productos, codigo);
 
-                            switch(eliminar) {
-                                case 'S':
-                                    productos.remove(indice);
-                                    productos = accion.ordearProductos(productos);
-                                    break;
-                                case 's':
-                                    productos.remove(indice);
-                                    productos = accion.ordearProductos(productos);
-                                    break;
-                                case 'N':
-                                    break;
-                                case 'n':
-                                    break;
-                                default:
-                                    System.out.println("\n\tOpcion invalida");
-                            }
+                                switch(eliminar) {
+                                    case 'S':
+                                        validacionEliminacion = true;
+                                        productos.remove(indice);
+                                        productos = accion.ordearProductos(productos);
+                                        break;
+                                    case 's':
+                                        validacionEliminacion = true;
+                                        productos.remove(indice);
+                                        productos = accion.ordearProductos(productos);
+                                        break;
+                                    case 'N':
+                                        validacionEliminacion = true;
+                                        break;
+                                    case 'n':
+                                        validacionEliminacion = true;
+                                        break;
+                                    default:
+                                        validacionEliminacion = false;
+                                        System.out.println("\n\tOpcion inválida");
+                                        break;
+                                }
+                            } while(!validacionEliminacion);
                         } else {
                             System.out.println("\n\tEl producto que desea eliminar no existe.");
                             validacion = false;
@@ -165,8 +175,6 @@ public class Citta {
                     break;
                 case 6:
                     control = false;
-                default:
-                    System.out.println("\n\tOpción invalida");
             }
         } while(control);
         
