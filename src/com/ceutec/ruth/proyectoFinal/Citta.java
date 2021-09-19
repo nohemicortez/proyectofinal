@@ -1,3 +1,26 @@
+/*
+    Ceutec
+    Clase:      Programación 1
+    Docente:    Ing. Rafael Cerrato
+    Sección:    277
+    Trabajo:    Proyecto final
+    Estudiante: Ruth Nohemi Martínez Cortez
+    Cuenta:     31951116
+
+    Nombre de la empresa: Cortez Software Inc.
+    Título de la aplicación: Citta
+    Problema a resolver: Creación de un sistema de inventario para el manejo eficiente de productos para la venta.
+    Tipo de empresa: Comercial.
+    Descripción: Sistema de inventario para supermercados en donde se almacenarán productos para el consumo.
+    Funciones del sistema:
+        Listado de productos.
+        Búsqueda de productos.
+        Ingreso de productos.
+        Modificación de productos.
+        Eliminación de productos.
+
+*/
+
 package com.ceutec.ruth.proyectoFinal;
 
 import com.ceutec.ruth.proyectoFinal.datos.BaseDeDatos;
